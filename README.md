@@ -7,6 +7,9 @@ It's a new project and only some parts of the protocol have been implemented. I 
 
 ## Synopis
 
+    # set up google market credentials
+    $ echo -e "---\nlogin: mylogin@gmail.com\npassword: mypass" > ~/.supermarket.yml
+
     require 'supermarket/session'
     session = Supermarket::Session.new
 
