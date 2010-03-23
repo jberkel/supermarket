@@ -1,0 +1,10 @@
+#!/usr/bin/env jruby
+$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + '/../lib'))
+
+require 'supermarket/session'
+
+puts case ARGV.shift
+  when "search";  Supermarket::Session.new.search(ARGV.shift || "Test")
+  when "comments";Supermarket::Session.new.comments(ARGV.shift || 'org.jruby.ruboto.irb')
+  else "#{File.basename($0)} [search|comments] [query|app_id]"
+end
