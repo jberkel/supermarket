@@ -39,7 +39,7 @@ module Supermarket
         setQuery(query).
         setStartIndex(start).
         setEntriesCount(count).
-        setWithExtendedInfo(extended).build
+        setWithExtendedInfo(extended).build()
       execute(request)
     end
 
@@ -52,6 +52,15 @@ module Supermarket
 
       execute(request).comments_list.to_a
     end
+
+    def image(app_id, usage=Market::GetImageRequest::AppImageUsage::SCREENSHOT, image_id='1')
+      request = Market::GetImageRequest.newBuilder().
+        setAppId(app_id).
+        setImageUsage(usage).
+        setImageId(image_id).build()
+
+      String.from_java_bytes(execute(request).getImageData().toByteArray())
+		end
 
 
     protected

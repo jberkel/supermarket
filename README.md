@@ -42,7 +42,6 @@ You will need to provide your Google market credentials:
 
     ...
 
-
 ### Comments
 
     $ market comments org.jruby.ruboto.irb
@@ -53,3 +52,8 @@ You will need to provide your Google market credentials:
     authorId: "10620488450454736758"
 
     ...
+
+### Screenshot
+
+    $ market image [appid]
+

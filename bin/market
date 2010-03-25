@@ -3,8 +3,9 @@ $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + '/../lib'))
 
 require 'supermarket/session'
 
-puts case ARGV.shift
-  when "search";  Supermarket::Session.new.search(ARGV.shift || "Test")
-  when "comments";Supermarket::Session.new.comments(ARGV.shift || 'org.jruby.ruboto.irb')
-  else "#{File.basename($0)} [search|comments] [query|app_id]"
+case ARGV.shift
+  when "search";  puts Supermarket::Session.new.search(ARGV.shift || "Test")
+  when "comments";puts Supermarket::Session.new.comments(ARGV.shift || 'org.jruby.ruboto.irb')
+  when "image";   File.open('icon.jpg', 'w') { |f| f << Supermarket::Session.new.image(ARGV.shift||'-7934792861962808905') }
+  else puts "#{File.basename($0)} [search|comments|image] [query|app_id]"
 end
