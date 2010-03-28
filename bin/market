@@ -2,10 +2,21 @@
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + '/../lib'))
 
 require 'supermarket/session'
+format = ARGV.map { |a| a[/--format=(\w+)/, 1]}.compact.first || "json"
+image  = ARGV.map { |a| a[/--image-out=([^\s]+)/, 1]}.compact.first || "image.jpg"
 
-case ARGV.shift
-  when "search";  puts Supermarket::Session.new.search(ARGV.shift || "Test")
-  when "comments";puts Supermarket::Session.new.comments(ARGV.shift || 'org.jruby.ruboto.irb')
-  when "image";   File.open('icon.jpg', 'w') { |f| f << Supermarket::Session.new.image(ARGV.shift||'-7934792861962808905') }
-  else puts "#{File.basename($0)} [search|comments|image] [query|app_id]"
+def usage
+  puts "#{File.basename($0)} [search|comments|image|imagedata] [query|app_id] [--format=json|xml|html] [--image-out=file]"
+  exit 1
 end
+
+case command = ARGV.shift
+  when /\A(search|comments|image)\Z/
+    arg = ARGV.shift or usage
+    puts Supermarket::Session.new.send(command, arg).send("to_#{format.downcase}")
+  when 'imagedata'
+    arg = ARGV.shift or usage
+    File.open(image, 'w') { |f| f << Supermarket::Session.new.image_data(arg) }
+  else usage
+end
+

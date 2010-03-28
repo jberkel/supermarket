@@ -4,7 +4,7 @@ require 'yaml'
 
 require File.dirname(__FILE__) + "/jars/AndroidMarketApi.jar"
 require File.dirname(__FILE__) + "/jars/protobuf-java-2.2.0.jar"
-
+require File.dirname(__FILE__) + "/formats"
 
 #A thin Ruby wrapper around the Java based Android Market API
 #http://code.google.com/p/android-market-api/
@@ -12,10 +12,8 @@ module Supermarket
   import 'com.gc.android.market.api.MarketSession'
   import 'com.gc.android.market.api.model.Market'
 
-  class Market::Comment
-    def to_h
-      [:text, :rating, :authorName, :creationTime].inject({}) { |m,o| m[o.to_s] = send(o); m }
-    end
+  [Market::CommentsResponse, Market::AppsResponse, Market::GetImageResponse].each do |msg|
+    msg.send(:include, Formats)
   end
 
   class Session
@@ -59,18 +57,40 @@ module Supermarket
         setStartIndex(start).
         setEntriesCount(count).build()
 
-      execute(request).comments_list.map { |c| c.to_h }
+      if resp = execute(request)
+        resp
+      else
+        []
+      end
     end
 
     def image(app_id, usage=Market::GetImageRequest::AppImageUsage::SCREENSHOT, image_id='1')
       request = Market::GetImageRequest.newBuilder().
-        setAppId(app_id).
+        setAppId(pkg_to_app_id(app_id)).
         setImageUsage(usage).
         setImageId(image_id).build()
 
-      String.from_java_bytes(execute(request).getImageData().toByteArray())
+      execute(request)
 		end
 
+		def image_data(app_id, usage=Market::GetImageRequest::AppImageUsage::SCREENSHOT, image_id='1')
+      if resp = image(app_id, usage, image_id)
+		    String.from_java_bytes(resp.getImageData().toByteArray())
+	    else
+	      []
+      end
+	  end
+
+    # Resolves a package name to a package id
+    def pkg_to_app_id(package)
+      return package if package =~ /\A-?\d+\Z/
+
+      if app = search(package).getAppList().to_a.find { |app| app.packageName == package }
+        app.getId()
+      else
+        raise ArgumentError, "could not resolve package #{package}"
+      end
+    end
 
     protected
     def execute(request)
