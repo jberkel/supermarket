@@ -6,15 +6,13 @@ require File.dirname(__FILE__) + "/jars/AndroidMarketApi.jar"
 require File.dirname(__FILE__) + "/jars/protobuf-java-2.2.0.jar"
 require File.dirname(__FILE__) + "/formats"
 
+
 #A thin Ruby wrapper around the Java based Android Market API
 #http://code.google.com/p/android-market-api/
 module Supermarket
   import 'com.gc.android.market.api.MarketSession'
   import 'com.gc.android.market.api.model.Market'
 
-  [Market::CommentsResponse, Market::AppsResponse, Market::GetImageResponse].each do |msg|
-    msg.send(:include, Formats)
-  end
 
   class Session
     attr_reader :_session

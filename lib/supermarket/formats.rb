@@ -9,7 +9,7 @@ module Supermarket
     import 'com.google.protobuf.XmlFormat'
     import 'com.google.protobuf.HtmlFormat'
 
-    def to_json
+    def to_json(*a)
       JsonFormat.printToString(self)
     end
 
@@ -20,5 +20,13 @@ module Supermarket
     def to_html
       HtmlFormat.printToString(self)
     end
+
+    def to_ruby
+      require 'json'
+      JSON.parse(to_json)
+    end
   end
 end
+
+#make formats available everywhere
+Java::ComGoogleProtobuf::GeneratedMessage.send(:include, Supermarket::Formats)
