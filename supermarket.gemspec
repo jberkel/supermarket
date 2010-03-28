@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "bin/market",
+     "lib/supermarket.rb",
      "lib/supermarket/formats.rb",
      "lib/supermarket/jars/AndroidMarketApi.jar",
      "lib/supermarket/jars/protobuf-format-java-1.2-SNAPSHOT.jar",

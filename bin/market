@@ -1,7 +1,7 @@
 #!/usr/bin/env jruby
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + '/../lib'))
 
-require 'supermarket/session'
+require 'supermarket'
 format = ARGV.map { |a| a[/--format=(\w+)/, 1]}.compact.first || "json"
 image  = ARGV.map { |a| a[/--image-out=([^\s]+)/, 1]}.compact.first || "image.jpg"
 
