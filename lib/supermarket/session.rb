@@ -5,12 +5,19 @@ require 'yaml'
 require File.dirname(__FILE__) + "/jars/AndroidMarketApi.jar"
 require File.dirname(__FILE__) + "/jars/protobuf-java-2.2.0.jar"
 
-import 'com.gc.android.market.api.MarketSession'
-import 'com.gc.android.market.api.model.Market'
 
 #A thin Ruby wrapper around the Java based Android Market API
 #http://code.google.com/p/android-market-api/
 module Supermarket
+  import 'com.gc.android.market.api.MarketSession'
+  import 'com.gc.android.market.api.model.Market'
+
+  class Market::Comment
+    def to_h
+      [:text, :rating, :authorName, :creationTime].inject({}) { |m,o| m[o.to_s] = send(o); m }
+    end
+  end
+
   class Session
     attr_reader :_session
 
@@ -45,12 +52,14 @@ module Supermarket
 
 
     def comments(app_id, start=0, count=10)
+      raise ArgumentError, "need app id" unless app_id
+
       request = Market::CommentsRequest.newBuilder().
         setAppId(app_id).
         setStartIndex(start).
         setEntriesCount(count).build()
 
-      execute(request).comments_list.to_a
+      execute(request).comments_list.map { |c| c.to_h }
     end
 
     def image(app_id, usage=Market::GetImageRequest::AppImageUsage::SCREENSHOT, image_id='1')

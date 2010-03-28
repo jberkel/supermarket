@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jan Berkel"]
-  s.date = %q{2010-03-23}
+  s.date = %q{2010-03-28}
   s.default_executable = %q{market}
-  s.description = %q{An unoffical/reverse engineered API for Android market}
+  s.description = %q{An unoffical/reverse engineered API for Android market.}
   s.email = %q{jan.berkel@gmail.com}
   s.executables = ["market"]
   s.extra_rdoc_files = [
