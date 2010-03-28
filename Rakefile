@@ -1,4 +1,7 @@
 
+require 'rake/clean'
+CLEAN.include('pkg')
+
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
@@ -10,6 +13,7 @@ begin
     gem.authors = ["Jan Berkel"]
     gem.files = FileList['lib/**/*', 'bin/*'].to_a
     gem.executables = "market"
+    gem.platform = 'universal-java'
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install jeweler"

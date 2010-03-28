@@ -5,7 +5,8 @@
 
 Gem::Specification.new do |s|
   s.name = %q{supermarket}
-  s.version = "0.0.0"
+  s.version = "0.0.1"
+  s.platform = %q{universal-java}
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jan Berkel"]
@@ -19,7 +20,9 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "bin/market",
+     "lib/supermarket/formats.rb",
      "lib/supermarket/jars/AndroidMarketApi.jar",
+     "lib/supermarket/jars/protobuf-format-java-1.2-SNAPSHOT.jar",
      "lib/supermarket/jars/protobuf-java-2.2.0.jar",
      "lib/supermarket/session.rb"
   ]
