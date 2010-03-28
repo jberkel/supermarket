@@ -1,6 +1,8 @@
 #!/usr/bin/env jruby
+require 'rubygems'
 require 'java'
 require 'yaml'
+require 'json'
 
 require File.dirname(__FILE__) + "/jars/AndroidMarketApi.jar"
 require File.dirname(__FILE__) + "/jars/protobuf-java-2.2.0.jar"
@@ -58,7 +60,18 @@ module Supermarket
       if resp = execute(request)
         resp
       else
-        []
+        raise ArgumentError, "request returned nil"
+      end
+    end
+
+    # fetch all available comments
+    def all_comments(app_id, c=[])
+      comments_resp = comments(app_id, c.size, 10)
+      c += comments_resp.comments_list.to_a
+      if comments_resp.entriesCount == c.size
+        c
+      else
+        all_comments(app_id, c)
       end
     end
 

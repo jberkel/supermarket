@@ -14,6 +14,7 @@ begin
     gem.files = FileList['lib/**/*', 'bin/*'].to_a
     gem.executables = "market"
     gem.platform = 'universal-java'
+    gem.add_dependency "json-jruby"
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install jeweler"
