@@ -1,7 +1,9 @@
-0.0.1 (02/28/2010)
+0.0.2 (02/28/2010)
+0.0.1
 
   * Different output formats (json, xml, html)
   * Image output support
+  * Display all comments
 
 0.0.0 (03/23/2010)
 
