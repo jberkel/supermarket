@@ -1,3 +1,6 @@
 pkg
 vendor
+tmp
+*.war
 .bundle
+Gemfile.lock

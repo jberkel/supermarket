@@ -1,21 +1,16 @@
 #!/usr/bin/env ruby
-begin
-  # Try to require the preresolved locked set of gems.
+if ENV['DEV']
   require File.expand_path('../../../.bundle/environment', __FILE__)
-rescue LoadError
-  # Fall back on doing an unlocked resolve at runtime.
-  begin
-    require "rubygems"
-    require "bundler"
-    Bundler.setup
-  end
+  Bundler.require(:web, :development)
+  Sinatra::Application.register Sinatra::Reloader
+else
+  require 'rubygems'
+  require 'sinatra'
+  require 'sinatra/respond_to'
 end
 
-Bundler.require(:web, :development)
 require File.join(File.dirname(__FILE__), 'session')
-
 Sinatra::Application.register Sinatra::RespondTo
-Sinatra::Application.register Sinatra::Reloader
 
 module Supermarket
   class Api
@@ -27,7 +22,6 @@ module Supermarket
         wants.json {comments.to_json}
         wants.xml  {comments.to_xml}
         wants.html {comments.to_html}
-
       end
     end
  end

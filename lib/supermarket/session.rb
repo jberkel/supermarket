@@ -19,22 +19,25 @@ module Supermarket
   class Session
     attr_reader :_session
 
-    def initialize
+    def initialize(opts={})
+      opts.merge!(self.class.config)
       @_session = MarketSession.new
-      @_session.login(config['login'], config['password'])
+      @_session.login(opts['login'], opts['password'])
     end
 
-    def config_file
+
+    def self.config_file
       File.join(ENV['HOME'], '.supermarket.yml')
     end
 
-    def config
+    def self.config
       @config ||= begin
-        unless File.exists?(config_file)
-          File.open(config_file, 'w') { |f| f << YAML.dump('login'=>'someone@gmail.com', 'password'=>'secr3t') }
-          raise "Android market config file not found. Please edit #{config_file}"
+        if defined? $servlet_context
+          { 'login' => $servlet_context.getInitParameter('market_login') ,
+            'password' => $servlet_context.getInitParameter('market_password') }
+        else
+          File.exists?(config_file) ? YAML.load_file(config_file) : {}
         end
-        YAML.load_file(config_file)
       end
     end
 
