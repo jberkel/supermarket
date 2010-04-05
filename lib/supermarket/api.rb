@@ -7,7 +7,7 @@ environment = ['.bundle', 'bundle'].map { |f|
 if environment.empty?
   require 'rubygems'
   require 'bundler'
-  Bundler.runtime.setup
+  Bundler.setup
 else
   require environment.first
 end

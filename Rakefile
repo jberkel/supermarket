@@ -28,6 +28,7 @@ warbler = Warbler::Task.new
 
 task :explode => [:clean, :war, war_dir] do
   sh "unzip #{warbler.config.war_name}.war -d #{war_dir}"
+  sh "mv #{war_dir}/WEB-INF/{.bundle,bundle}"
 end
 
 task :explode_gemjar => [:clean, 'war:gemjar', :war, war_dir] do
@@ -36,7 +37,6 @@ end
 
 desc "deploy to gae"
 task :deploy => [:explode] do
-  sh "mv #{war_dir}/WEB-INF/{.bundle,bundle}"
   begin
     require '/opt/homebrew/Cellar/app-engine-java-sdk/1.3.2/lib/appengine-tools-api.jar'
     Java::ComGoogleAppengineToolsAdmin::AppCfg.main(['update', war_dir].to_java(:string))
