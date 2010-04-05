@@ -1,4 +1,8 @@
-0.0.2 (02/28/2010)
+0.0.3 (04/05/20010)
+
+  * Added Sinatra based web API, deployable to GAE
+
+0.0.2 (03/28/2010)
 0.0.1
 
   * Different output formats (json, xml, html)

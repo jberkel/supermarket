@@ -1,14 +1,14 @@
+source 'http://rubygems.org'
 
-source :gemcutter
-
-gem "json_pure"
+gem "json-jruby", :require=>'json'
 
 group :development do
-  gem "sinatra-reloader", :require=>"sinatra/reloader"
+  #gem "sinatra-reloader", :require=>"sinatra/reloader"
 end
 
 group :web do
-  gem "sinatra", :require=>"sinatra/base"
-  gem "sinatra-respond_to", :require=>"sinatra/respond_to"
+  gem "sinatra",              :require=>"sinatra/base"
+  gem "rack-respond_to",      :require=>"rack/respond_to"
+  gem "rack-abstract-format", :require=>"rack/abstract_format"
 end
 

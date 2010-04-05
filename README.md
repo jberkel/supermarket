@@ -5,7 +5,7 @@ This is a thin JRuby wrapper for the [Android Market API](http://code.google.com
 
 It's a new project and only some parts of the protocol have been implemented. I decided to build on top of Java/JRuby because the native Ruby Protocolbuffer implementation ([ruby-protobuf](http://code.google.com/p/ruby-protobuf/)) could not properly handle the [.proto file](http://github.com/jberkel/android-market-api/blob/master/AndroidMarketApi/proto/market.proto) used by the API.
 
-## Synopis
+## Synopsis
     require 'supermarket'
     session = Supermarket::Session.new
 
