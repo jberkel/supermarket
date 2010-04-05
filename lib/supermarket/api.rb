@@ -1,6 +1,17 @@
 #!/usr/bin/env jruby
 
-require File.expand_path('../../../.bundle/environment', __FILE__)
+environment = ['.bundle', 'bundle'].map { |f|
+  File.expand_path("../../../#{f}/environment.rb", __FILE__)
+}.select { |f| File.exists?(f) }
+
+if environment.empty?
+  require 'rubygems'
+  require 'bundler'
+  Bundler.runtime.setup
+else
+  require environment.first
+end
+
 require File.join(File.dirname(__FILE__), 'session')
 Bundler.require(:default, :web)
 
