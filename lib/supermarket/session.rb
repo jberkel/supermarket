@@ -22,7 +22,11 @@ module Supermarket
     def initialize(opts={})
       opts.merge!(self.class.config)
       @_session = MarketSession.new
-      @_session.login(opts['login'], opts['password'])
+      if opts['authToken']
+        @_session.setAuthToken(opts['authToken'])
+      else
+        @_session.login(opts['login'], opts['password'])
+      end
     end
 
 
@@ -63,7 +67,8 @@ module Supermarket
       if resp = execute(request)
         resp
       else
-        raise ArgumentError, "request returned nil"
+        #raise ArgumentError, "request returned nil"
+        nil
       end
     end
 

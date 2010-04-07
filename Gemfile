@@ -4,6 +4,7 @@ gem "json-jruby", :require=>'json'
 
 group :development do
   #gem "sinatra-reloader", :require=>"sinatra/reloader"
+  #gem "appengine-sdk"
 end
 
 group :web do

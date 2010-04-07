@@ -16,19 +16,25 @@ require File.join(File.dirname(__FILE__), 'session')
 Bundler.require(:default, :web)
 
 module Supermarket
-  class Api < Sinatra::Application
+  class Api < Sinatra::Base
     include Rack::RespondTo
+    reset!
+
+    not_found do
+      content_type :json
+      [404, { 'error' => 'not found' }.to_json]
+    end
 
     get("/:id/comments") do
       session  = Session.new
-      comments = session.comments(params[:id])
-
-      comments.to_json
-
-      respond_to do |wants|
-        wants.json {comments.to_json}
-        wants.xml  {comments.to_xml}
-        wants.html {comments.to_html}
+      if comments = session.comments(params[:id])
+        respond_to do |wants|
+          wants.json {comments.to_json}
+          wants.xml  {comments.to_xml}
+          wants.html {comments.to_html}
+        end
+      else
+        raise Sinatra::NotFound
       end
     end
 
@@ -50,5 +56,10 @@ module Supermarket
         end
       }
     end
+  end
+
+
+  class ClientLogin < Sinatra::Base
+    reset!
   end
 end
