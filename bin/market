@@ -17,6 +17,9 @@ case command = ARGV.shift
   when 'imagedata'
     arg = ARGV.shift or usage
     File.open(image, 'w') { |f| f << Supermarket::Session.new.image_data(arg) }
+  when 'icondata'
+    arg = ARGV.shift or usage
+    File.open(image, 'w') { |f| f << Supermarket::Session.new.image_data(arg, :icon) }
   else usage
 end
 
