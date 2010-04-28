@@ -83,16 +83,23 @@ module Supermarket
       end
     end
 
-    def image(app_id, usage=Market::GetImageRequest::AppImageUsage::SCREENSHOT, image_id='1')
+    def image(app_id, usage=:screenshot, image_id='1')
+      case usage
+      when :screenshot
+        usage_const = Market::GetImageRequest::AppImageUsage::SCREENSHOT
+      when :icon
+        usage_const = Market::GetImageRequest::AppImageUsage::ICON
+      end
+
       request = Market::GetImageRequest.newBuilder().
         setAppId(pkg_to_app_id(app_id)).
-        setImageUsage(usage).
+        setImageUsage(usage_const).
         setImageId(image_id).build()
 
       execute(request)
 		end
 
-		def image_data(app_id, usage=Market::GetImageRequest::AppImageUsage::SCREENSHOT, image_id='1')
+		def image_data(app_id, usage=:screenshot, image_id='1')
       if resp = image(app_id, usage, image_id)
 		    String.from_java_bytes(resp.getImageData().toByteArray())
 	    else
