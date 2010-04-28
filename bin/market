@@ -6,7 +6,7 @@ format = ARGV.map { |a| a[/--format=(\w+)/, 1]}.compact.first || "json"
 image  = ARGV.map { |a| a[/--image-out=([^\s]+)/, 1]}.compact.first || "image.jpg"
 
 def usage
-  puts "#{File.basename($0)} [search|comments|all_comments|image|imagedata] [query|app_id] [--format=json|xml|html] [--image-out=file]"
+  puts "#{File.basename($0)} [search|comments|all_comments|image|imagedata|icondata] [query|app_id] [--format=json|xml|html] [--image-out=file]"
   exit 1
 end
 
