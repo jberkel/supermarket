@@ -6,11 +6,13 @@ format = ARGV.map { |a| a[/--format=(\w+)/, 1]}.compact.first || "json"
 image  = ARGV.map { |a| a[/--image-out=([^\s]+)/, 1]}.compact.first || "image.jpg"
 
 def usage
-  puts "#{File.basename($0)} [search|comments|all_comments|image|imagedata|icondata] [query|app_id] [--format=json|xml|html] [--image-out=file]"
+  puts "#{File.basename($0)} [search|comments|all_comments|categories|image|imagedata|icondata] [query|app_id] [--format=json|xml|html] [--image-out=file]"
   exit 1
 end
 
 case command = ARGV.shift
+  when "categories"
+    puts Supermarket::Session.new.send(command).send("to_#{format.downcase}")
   when /\A(search|(all_)?comments|image)\Z/
     arg = ARGV.shift or usage
     puts Supermarket::Session.new.send(command, arg).send("to_#{format.downcase}")
