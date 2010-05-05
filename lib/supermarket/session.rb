@@ -55,6 +55,10 @@ module Supermarket
       execute(request)
     end
 
+    def categories()
+      request = Market::CategoriesRequest.newBuilder().build()
+      execute(request)
+    end
 
     def comments(app_id, start=0, count=10)
       raise ArgumentError, "need app id" unless app_id
