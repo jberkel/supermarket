@@ -45,14 +45,26 @@ module Supermarket
       end
     end
 
+    def search(query=nil, categid=nil,extended=true, start=0, count=10)
+      request_builder = Market::AppsRequest.newBuilder()
 
-    def search(query, extended=true, start=0, count=10)
-      request = Market::AppsRequest.newBuilder().
-        setQuery(query).
+      if query.nil? and !categid.nil?
+        request_builder.setCategoryId(categid)
+      elsif !query.nil? and categid.nil?
+        request_builder.setQuery(query)
+      elsif !query.nil? and !categid.nil?
+        request_builder.setQuery(query)
+        request_builder.setCategoryId(categid)
+      else
+        raise "query or category_id must not be nil."
+      end
+      
+      request_builder.
         setStartIndex(start).
         setEntriesCount(count).
-        setWithExtendedInfo(extended).build()
-      execute(request)
+        setWithExtendedInfo(extended)
+
+      execute(request_builder.build())
     end
 
     def categories()
