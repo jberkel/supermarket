@@ -1,6 +1,7 @@
-0.0.3 (04/05/20010)
+0.0.3 (10/08/20010)
 
   * Added Sinatra based web API, deployable to GAE
+  * Categories
 
 0.0.2 (03/28/2010)
 0.0.1
