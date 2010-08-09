@@ -25,6 +25,7 @@ module Supermarket
       if opts['authToken']
         @_session.setAuthToken(opts['authToken'])
       else
+        raise "Need login and password" unless opts['login'] && opts['password']
         @_session.login(opts['login'], opts['password'])
       end
     end
