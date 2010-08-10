@@ -29,12 +29,12 @@ def gemspec_file
   "#{name}.gemspec"
 end
 
-def platform
-  eval(IO.read(gemspec_file)).platform.to_s
+def gemspec
+  @gemspec ||= eval(IO.read(gemspec_file))
 end
 
 def gem_file
-  "#{name}-#{version}-#{platform}.gem"
+  gemspec.file_name
 end
 
 def replace_header(head, header_name)
