@@ -23,7 +23,7 @@ module Supermarket
       opts.merge!(self.class.config)
       @_session = MarketSession.new
       if opts['authToken']
-        @_session.setAuthToken(opts['authToken'])
+        @_session.setAuthSubToken(opts['authToken'])
       else
         raise "Need login and password" unless opts['login'] && opts['password']
         @_session.login(opts['login'], opts['password'])
