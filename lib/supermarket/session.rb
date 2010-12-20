@@ -18,12 +18,19 @@ module Supermarket
 
   class Session
     attr_reader :_session
+    @@order_type = {
+      :none     => Market::AppsRequest::OrderType.value_of(0),
+      :popular  => Market::AppsRequest::OrderType.value_of(1),
+      :newest   => Market::AppsRequest::OrderType.value_of(2),
+      :featured => Market::AppsRequest::OrderType.value_of(3)
+    }
+    def order_type(type_sym);@@order_type[type_sym];end
 
     def initialize(opts={})
       opts.merge!(self.class.config)
       @_session = MarketSession.new
       if opts['authToken']
-        @_session.setAuthToken(opts['authToken'])
+        @_session.setAuthSubToken(opts['authToken'])
       else
         raise "Need login and password" unless opts['login'] && opts['password']
         @_session.login(opts['login'], opts['password'])
@@ -46,7 +53,14 @@ module Supermarket
       end
     end
 
-    def search(query=nil, categid=nil,extended=true, start=0, count=10)
+    def get_app(app_id)
+      request_builder = Market::AppsRequest.newBuilder()
+      request_builder.set_app_id(app_id).set_with_extended_info(true) 
+      execute(request_builder.build())
+    end
+
+
+    def search(query=nil, categid=nil,extended=true, start=0, count=10, order=:popular)
       request_builder = Market::AppsRequest.newBuilder()
 
       if query.nil? and !categid.nil?
@@ -63,7 +77,9 @@ module Supermarket
       request_builder.
         setStartIndex(start).
         setEntriesCount(count).
-        setWithExtendedInfo(extended)
+        setWithExtendedInfo(extended).
+        setOrderType(order_type(order))
+
 
       execute(request_builder.build())
     end
