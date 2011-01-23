@@ -29,6 +29,7 @@ module Supermarket
     def initialize(opts={})
       opts.merge!(self.class.config)
       @_session = MarketSession.new
+      @_session.getContext().setAndroidId("3000000000000000");
       if opts['authToken']
         @_session.setAuthSubToken(opts['authToken'])
       else
