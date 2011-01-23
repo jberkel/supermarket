@@ -1,4 +1,11 @@
-0.0.3 (10/08/20010)
+0.0.4 (01/23/2011)
+
+  * Updated AndroidMarketApi.jar
+  * Various contributions from Kevin Carter
+   (https://github.com/DexterTheDragon) and Hiroyuki Nakamura
+   (https://github.com/hryk)
+
+0.0.3 (10/08/2010)
 
   * Added Sinatra based web API, deployable to GAE
   * Categories
