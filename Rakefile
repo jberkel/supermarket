@@ -60,6 +60,7 @@ end
 #
 #############################################################################
 
+desc "release new version"
 task :release => :build do
   unless `git branch` =~ /^\* master$/
     puts "You must be on the master branch to release!"
