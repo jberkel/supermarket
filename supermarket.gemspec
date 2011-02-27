@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
   s.name = 'supermarket'
-  s.version = '0.0.4'
+  s.version = '0.0.5'
   s.platform = 'universal-java'
 
   s.rubyforge_project = 'supermarket'
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jan Berkel"]
-  s.date = '2011-01-23'
+  s.date = '2011-02-27'
   s.default_executable = %q{market}
   s.description = %q{An unoffical/reverse engineered API for Android market.}
   s.email = %q{jan.berkel@gmail.com}
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.files = %w[
     CHANGES
     Gemfile
+    Gemfile.lock
     README.md
     Rakefile
     appengine-web.xml
