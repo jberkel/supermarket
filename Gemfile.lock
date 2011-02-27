@@ -1,0 +1,28 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    bouncy-castle-java (1.5.0145.2)
+    jruby-openssl (0.7.3)
+      bouncy-castle-java
+    json (1.5.0-java)
+    json-jruby (1.5.0-java)
+      json (= 1.5.0)
+    rack (1.2.1)
+    rack-abstract-format (0.9.9)
+    rack-accept-media-types (0.9)
+    rack-respond_to (0.9.8)
+      rack-accept-media-types (>= 0.6)
+    sinatra (1.1.3)
+      rack (~> 1.1)
+      tilt (>= 1.2.2, < 2.0)
+    tilt (1.2.2)
+
+PLATFORMS
+  java
+
+DEPENDENCIES
+  jruby-openssl
+  json-jruby
+  rack-abstract-format
+  rack-respond_to
+  sinatra

@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem "json-jruby", :require=>'json'
+gem "jruby-openssl"
 
 group :development do
   #gem "sinatra-reloader", :require=>"sinatra/reloader"
