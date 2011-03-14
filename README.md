@@ -67,6 +67,23 @@ You will need to provide your Google market credentials in ~/.supermarket.yml:
 
     $ market imagedata org.jruby.ruboto.irb --image-out=image.jpg
 
+### Google spreadsheet import
+
+Import `market_comments_template.csv` into a new spreadsheet, with CSV
+conversion. Open the imported document, rename as you like. In the menu, click
+on `Forms / Create form`. Add anything in the form description just to enable
+the Save button. If you are using a private Google Apps domain, make sure to
+uncheck the option "Require yourdomain.com sign-in to view this form." Save the
+form. Copy the formkey displayed in the link at the bottom of the form creation
+page
+
+Run:
+
+  comments2form app_id form_key
+
+The initial import of comments will take a while, but subsequent runs will only
+add new comments to the form.
+
 ## Credits
 
 This library would be impossible without the code from the [Android Market API](http://code.google.com/p/android-market-api/) project. Serialization support handled by the [protobuf-java-format](http://code.google.com/p/protobuf-java-format/) library.
