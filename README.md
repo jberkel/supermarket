@@ -79,10 +79,10 @@ page
 
 Run:
 
-  comments2form app_id form_key
+    comments2form app_id form_key
 
 The initial import of comments will take a while, but subsequent runs will only
-add new comments to the form.
+add new comments to the form. Just stick the command in a crontab somewhere.
 
 ## Credits
 
