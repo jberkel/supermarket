@@ -107,13 +107,16 @@ module Supermarket
     end
 
     # fetch all available comments
-    def all_comments(app_id, c=[])
+    def all_comments(app_id, c=[], &progress)
+      progress ||= proc { |s| sleep 1.5 } # avoid those 503/502
+
       comments_resp = comments(app_id, c.size, 10)
       c += comments_resp.comments_list.to_a
       if comments_resp.entriesCount == c.size
         c
       else
-        all_comments(app_id, c)
+        progress.call(c.size)
+        all_comments(app_id, c, &progress)
       end
     end
 

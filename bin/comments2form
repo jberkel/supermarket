@@ -1,0 +1,72 @@
+#!/usr/bin/env jruby
+$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + '/../lib'))
+# Retrieves new comments and posts them to a Google spreadsheet / forms
+
+require 'supermarket'
+require 'net/http'
+
+CONFIG = File.join(ENV['HOME'], ".supermarket-form.yml")
+
+def usage
+  puts "#{File.basename($0)} [app_id] [google_form_key]"
+end
+
+def session() @session ||= Supermarket::Session.new end
+def config()  @config  ||= YAML.load_file(CONFIG) rescue {} end
+def set_config(values) File.open(CONFIG, 'w') { |f| f << config.merge(values).to_yaml } end
+
+def get_all_comments(app_id)
+  session.all_comments(app_id) { |n| puts "Fetched #{n} comments"; sleep 1.5 }.
+        compact.
+        map  { |c| c.to_ruby }.
+        sort { |a,b| a['creationTime'].to_i <=> b['creationTime'].to_i }
+end
+
+def get_comments(app_id, last_timestamp=nil)
+  if last_timestamp
+    session.comments(app_id).
+      to_ruby['comments'].
+      select { |c| c['creationTime'].to_i > last_timestamp }.
+      sort   { |a,b| a['creationTime'].to_i <=> b['creationTime'].to_i }
+  else
+    get_all_comments(app_id)
+  end
+end
+
+def post_comments(form_key, comments = [])
+  url = URI.parse('http://spreadsheets.google.com/formResponse?formkey='+form_key+'&ifq')
+  Net::HTTP.start(url.host, url.port) do |http|
+    comments.uniq.each do |c|
+      post = Net::HTTP::Post.new([url.path, url.query].join('?'))
+      post.form_data = {
+        'entry.0.single'     => c['text'],
+        'entry.1.group'      => c['rating'],
+        'entry.2.single'     => c['authorName'],
+        'entry.3.single'     => c['authorId'],
+        'entry.4.single'     => Time.at(c['creationTime'].to_i/1000).strftime('%m/%d/%Y %H:%M:%S'),
+        # Standard Google form params
+        'submit'      => 'Submit',
+        'pageNumber'  => '0',
+        'backupCache' => ''
+      }
+      case http.request(post)
+        when Net::HTTPOK;
+        else raise "Error during form submission: #{resp.code} #{resp.message}"
+      end
+    end
+  end
+end
+
+if ARGV.size < 2
+  usage
+else
+  app_id, form_key = *ARGV
+  comments = get_comments(app_id, config['last_creation_time'])
+  if !comments.empty?
+    puts "#{comments.size} new comments"
+    #post_comments(comments, form_key)
+    set_config('last_creation_time' => comments.last['creationTime'])
+  else
+    puts "No new comments"
+  end
+end
