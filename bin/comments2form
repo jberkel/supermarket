@@ -51,7 +51,7 @@ def post_comments(form_key, comments = [])
         'pageNumber'  => '0',
         'backupCache' => ''
       }
-      case http.request(post)
+      case resp = http.request(post)
         when Net::HTTPOK;
         else raise "Error during form submission: #{resp.code} #{resp.message}"
       end
