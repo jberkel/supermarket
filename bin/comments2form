@@ -59,9 +59,9 @@ def post_comments(form_key, comments = [])
           else raise "Error during form submission: #{resp.code} #{resp.message}"
         end
       rescue Timeout::Error
-	STDERR.puts "timeout, retrying..."
-	sleep 1
-	retry
+        STDERR.puts "timeout, retrying..."
+        sleep 1
+        retry
       end
     end
   end
