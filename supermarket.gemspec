@@ -42,6 +42,6 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{JRuby bindings for android-market-api}
 
-   s.add_dependency(%q<json-jruby>, [">= 0"])
+   s.add_dependency(%q<json>, [">= 0"])
 end
 
