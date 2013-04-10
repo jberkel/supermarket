@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = 'supermarket'
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jan Berkel"]
-  s.date = '2011-02-27'
+  s.date = '2013-04-10'
   s.default_executable = %q{market}
   s.description = %q{An unoffical/reverse engineered API for Android market.}
   s.email = %q{jan.berkel@gmail.com}
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
     README.md
     Rakefile
     appengine-web.xml
+    bin/comments2form
     bin/market
     config.ru
     config/warble.rb
@@ -33,6 +34,7 @@ Gem::Specification.new do |s|
     lib/supermarket/jars/protobuf-format-java-1.2-SNAPSHOT.jar
     lib/supermarket/jars/protobuf-java-2.2.0.jar
     lib/supermarket/session.rb
+    market_comments_template.csv
     supermarket.gemspec
   ]
   # = MANIFEST =
