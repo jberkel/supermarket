@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'supermarket'
-  s.version = '0.0.5'
+  s.version = '0.0.6'
   s.platform = 'universal-java'
 
   s.rubyforge_project = 'supermarket'
@@ -30,9 +30,9 @@ Gem::Specification.new do |s|
     lib/supermarket.rb
     lib/supermarket/api.rb
     lib/supermarket/formats.rb
-    lib/supermarket/jars/AndroidMarketApi.jar
-    lib/supermarket/jars/protobuf-format-java-1.2-SNAPSHOT.jar
-    lib/supermarket/jars/protobuf-java-2.2.0.jar
+    lib/supermarket/jars/androidmarketapi-0.6.jar
+    lib/supermarket/jars/protobuf-java-2.4.1.jar
+    lib/supermarket/jars/protobuf-java-format-1.2.jar
     lib/supermarket/session.rb
     market_comments_template.csv
     supermarket.gemspec
