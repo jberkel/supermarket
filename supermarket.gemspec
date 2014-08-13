@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
   s.name = 'supermarket'
-  s.version = '0.0.5'
+  s.version = '0.0.6'
   s.platform = 'universal-java'
 
   s.rubyforge_project = 'supermarket'
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jan Berkel"]
-  s.date = '2011-02-27'
+  s.date = '2013-04-10'
   s.default_executable = %q{market}
   s.description = %q{An unoffical/reverse engineered API for Android market.}
   s.email = %q{jan.berkel@gmail.com}
@@ -23,16 +23,18 @@ Gem::Specification.new do |s|
     README.md
     Rakefile
     appengine-web.xml
+    bin/comments2form
     bin/market
     config.ru
     config/warble.rb
     lib/supermarket.rb
     lib/supermarket/api.rb
     lib/supermarket/formats.rb
-    lib/supermarket/jars/AndroidMarketApi.jar
-    lib/supermarket/jars/protobuf-format-java-1.2-SNAPSHOT.jar
-    lib/supermarket/jars/protobuf-java-2.2.0.jar
+    lib/supermarket/jars/androidmarketapi-0.6.jar
+    lib/supermarket/jars/protobuf-java-2.4.1.jar
+    lib/supermarket/jars/protobuf-java-format-1.2.jar
     lib/supermarket/session.rb
+    market_comments_template.csv
     supermarket.gemspec
   ]
   # = MANIFEST =
@@ -42,6 +44,6 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{JRuby bindings for android-market-api}
 
-   s.add_dependency(%q<json-jruby>, [">= 0"])
+   s.add_dependency(%q<json>, [">= 0"])
 end
 

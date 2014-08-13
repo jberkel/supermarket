@@ -4,8 +4,8 @@ require 'java'
 require 'yaml'
 require 'json'
 
-require File.dirname(__FILE__) + "/jars/AndroidMarketApi.jar"
-require File.dirname(__FILE__) + "/jars/protobuf-java-2.2.0.jar"
+require File.dirname(__FILE__) + "/jars/androidmarketapi-0.6.jar"
+require File.dirname(__FILE__) + "/jars/protobuf-java-2.4.1.jar"
 require File.dirname(__FILE__) + "/formats"
 
 
